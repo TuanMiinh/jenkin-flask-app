@@ -25,7 +25,7 @@ pipeline{
         stage ('Send to nexus'){
             steps{
                 nexusArtifactUploader artifacts: [[artifactId: 'app', classifier: '', file: 'app.zip', type: 'py']], credentialsId: '', groupId: 'jenkins-flask-app', 
-                nexusUrl: 'http://192.168.1.206:8081/', nexusVersion: 'nexus2', protocol: 'http', 
+                nexusUrl: '192.168.1.206:8081', nexusVersion: 'nexus2', protocol: 'http', 
                 repository: 'jenkins-flask-app', version: '2'
             }
         }
