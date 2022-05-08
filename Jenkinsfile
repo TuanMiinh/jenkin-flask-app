@@ -10,7 +10,10 @@ pipeline{
     stages {
 
         stage ('Build'){
-            sh 'zip -r app.zip app.py'
+            steps{
+                sh 'zip -r app.zip app.py'
+            }
+           
         }
 
         stage ('Test'){
