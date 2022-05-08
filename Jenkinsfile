@@ -24,9 +24,9 @@ pipeline{
 
         stage ('Send to nexus'){
             steps{
-                nexusArtifactUploader artifacts: [[artifactId: 'app', classifier: '', file: 'app.zip', type: 'zip']], credentialsId: '', groupId: 'jenkins-flask-app', 
-                nexusUrl: '192.168.1.216:8081', nexusVersion: 'nexus3', protocol: 'http', 
-                repository: 'jenkins-flask-app', version: '2'
+                nexusArtifactUploader artifacts: [[artifactId: 'app', classifier: '', file: 'app.zip', type: 'zip']], 
+                credentialsId: '604cf559-1668-400f-9c30-7f89813b8415', groupId: 'jenkins-flask-app', 
+                nexusUrl: '192.168.1.216:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'jenkins-flask-app', version: '2'
             }
         }
 
