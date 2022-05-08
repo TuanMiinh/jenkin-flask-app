@@ -1,0 +1,35 @@
+- name: Download lastest and build docker
+  hosts: docker
+  become: true
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+  tasks:
+    - name: download
+      shell: 'wget http://192.168.1.206:8081/repository/jenkins-flask-app/jenkins-flask-app/app/2/app.zip '
+      args: 
+        chdir: '/home/ansibleadmin'
+    - name: Unzip
+      shell: 'unzip -o app.zip'
+    - name: create docker file
+      copy: 
+        dest: /home/ansibleadmin/Dockerfile
+        content:
+          FROM python
+          WORKDIR /app
+          COPY ./app.py app.py
+          RUN pip3 install Flask
+          CMD ['python3', '/app/app.py']
+    - name: build
+      docker_image:
+        name: pythondocker
+        path: /home/ansibleadmin
+        force: yes
+        state: present
+    - name: run
+      docker_container:
+        name: pythondocker_container
+        image: pythondocker
+        state: started
+        recreate: yes
+        published_ports:
+        - 0.0.0.0:5000:5000
